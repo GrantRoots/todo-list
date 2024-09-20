@@ -1,78 +1,86 @@
 import "./styles.css";
 
-console.log('hi');
-
 class Todo {
-    constructor(title, description, dueDate, notes) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.notes = notes;
-    }
+  constructor(title, description, dueDate) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+  }
 
-    priority() {
+  priority() {
 
-    }
+  }
 
-    delete() {
+  delete() {
 
-    }
+  }
 
-    complete() {
-        //checks it off
-    }
+  complete() {
+    //checks it off
+  }
 
-    changeProject() {
+  changeProject() {
 
-    }
+  }
 
-    expand() {
+  expand() {
 
-    }
+  }
 }
 
 class Project {
-    //stores todos
-    constructor() {
+  //stores todos
+  constructor(name) {
+    this.name = name;
+  }
 
-    }
+  todos = []
 
-    todos = []
+  addTodo() {
 
-    addTodo() {
-
-    }
+  }
 }
-
-//add todo should pop up modal
 
 //show projects and some todos
 
-//function createProject
-
 //NEW TODO BUTTON
-const showButton = document.getElementById("showDialog");
-const bookDialog = document.getElementById("bookDialog");
-const outputBox = document.querySelector("output");
+const addTodo = document.getElementById("addTodo");
+const todoDialog = document.getElementById("todoDialog");
+const title = todoDialog.querySelector("#title");
+const description = todoDialog.querySelector("#description");
+const dueDate = todoDialog.querySelector("#dueDate");
+const confirmBtn = todoDialog.querySelector("#confirmBtn");
 
-const title = bookDialog.querySelector("#title");
-const author = bookDialog.querySelector("#author");
-const pages = bookDialog.querySelector("#pages");
-
-const confirmBtn = bookDialog.querySelector("#confirmBtn");
-
-showButton.addEventListener("click", () => {
-  bookDialog.showModal();
+addTodo.addEventListener("click", () => {
+  todoDialog.showModal();
 });
 
-bookDialog.addEventListener("close", (e) => {
-  bookDialog.close()
+todoDialog.addEventListener("close", (e) => {
+  todoDialog.close()
 });
 
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  let newBook = new Book(title.value, author.value, pages.value)
-  addBookToLibrary(newBook);
-  displayBooks();
-  bookDialog.close();
+  let newTodo = new Todo(title.value, description.value, dueDate.value)
+  todoDialog.close();
+});
+
+//NEW PROJECT BUTTON
+const addProject = document.getElementById("addProject");
+const projectDialog = document.getElementById("projectDialog");
+const projectTitle = projectDialog.querySelector("#projectTitle");
+const projectConfirmBtn = projectDialog.querySelector("#projectConfirmBtn");
+
+addProject.addEventListener("click", () => {
+  projectDialog.showModal();
+});
+
+projectDialog.addEventListener("close", (e) => {
+  projectDialog.close()
+});
+
+projectConfirmBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  let newProject = new Project(projectTitle.value)
+  todoDialog.close();
 });

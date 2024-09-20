@@ -8,15 +8,61 @@
 </head>
 <body>
     <div class="header">
-        <div>Name</div>
+        <div>Your Name</div>
     </div>
+
     <div class="sidebar">
-        <button id="new-todo">New Todo</button>
-        <button id="new-project">New Project</button>
-        <div class="projects"></div>
+        <button id="addTodo">Add Todo</button>
+        <dialog id="todoDialog">
+            <form>
+            <p>
+                <label>
+                    Title
+                    <input type="text" id="title">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Description
+                    <input type="text" id="description">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Due Date
+                    <input type="date" id="dueDate">
+                </label>
+            </p>
+            <div>
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+            </form>
+        </dialog>
+
+        <button id="addProject">Add Project</button>
+        <dialog id="projectDialog">
+            <form>
+            <p>
+                <label>
+                    Title
+                    <input type="text" id="projectTitle">
+                </label>
+            </p>
+            <p>
+            <div>
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="projectConfirmBtn" value="default">Confirm</button>
+            </div>
+            </form>
+        </dialog>
+
+        <div>notes?</div>
     </div>
+
     <div class="main">
-        <div>Projects</div>
+        <div class="content">Projects and tasks here. Make project titles bold and larger</div>
+        <div>Test</div>
     </div>
 
     <!-- <script src="index.js"></script> -->

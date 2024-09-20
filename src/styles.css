@@ -1,4 +1,34 @@
 body {
-    background-color: rebeccapurple;
-  }
+  margin: 0;
+  display: grid;
+  grid-template: 1fr 9fr / 2fr 8fr;
+  height: 100vh;
+}
+
+.header {
+  background-color: gray;
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  font-size: x-large;
+}
+
+.sidebar {
+  background-color: rgb(97, 71, 71);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.sidebar > button {
+  width: 100%;
+}
+
+.main {
+  background-color: rgb(141, 101, 64);
+  padding: 10px;
+}
   
