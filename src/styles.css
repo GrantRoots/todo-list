@@ -31,4 +31,16 @@ body {
   background-color: rgb(141, 101, 64);
   padding: 10px;
 }
+
+.project {
+  font-size: x-large;
+  background-color: rgb(116, 103, 103);
+  margin: 5px;
+}
+
+.todo {
+  font-size: large;
+  border: 1px solid black;
+  margin: 1px;
+}
   

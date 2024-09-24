@@ -13,7 +13,7 @@ class Todo {
   }
 
   delete() {
-
+    //create button that deltes it from the array
   }
 
   complete() {
@@ -30,8 +30,8 @@ class Todo {
 }
 
 class Project {
-  constructor(name) {
-    this.name = name;
+  constructor(title) {
+    this.title = title;
   }
 
   todos = []
@@ -39,15 +39,40 @@ class Project {
   addTodo() {
 
   }
+
+  remove() {
+
+  }
 }
 
 const projects = []
 
 //CREATE DEFAULT PROJECT
-const defaultProject = new Project('Default Project')
+const defaultProject = new Project('Default')
 projects.push(defaultProject)
 
-console.log(projects)
+const main = document.querySelector('.main')
+
+//append each project
+function displayProjects() {
+  main.textContent = ''
+  projects.forEach(project => {
+    const projectDiv = document.createElement('div')
+    projectDiv.textContent = project.title
+    projectDiv.setAttribute('class', 'project')
+  
+    project.todos.forEach(todo => {
+      const todoDiv = document.createElement('div')
+      todoDiv.textContent = todo.title //and the due date
+      todoDiv.setAttribute('class', 'todo')
+      projectDiv.appendChild(todoDiv)
+    })
+  
+    main.appendChild(projectDiv)
+  })
+}
+
+displayProjects()
 
 //show projects and 3 todos on main content
 
@@ -63,11 +88,11 @@ const selectProject = todoDialog.querySelector("#selectProject");
 
 addTodo.addEventListener("click", () => {
   for (let i = 0; i < projects.length; i++) {
-    const name = projects[i].name
+    const title = projects[i].title
     const option = document.createElement("option")
-    option.textContent = name
+    option.textContent = title
 
-    option.value = projects[i].name
+    option.value = projects[i].title
     console.log(option.value)
 
     selectProject.appendChild(option)
@@ -86,10 +111,15 @@ confirmBtn.addEventListener("click", (event) => {
 
   //put todo in projects todo array
   for (let i = 0; i < projects.length; i++) {
-    if (projects[i].name === selectProject.value) {
+    if (projects[i].title === selectProject.value) {
       projects[i].todos.push(newTodo)
     }
   }
+
+  //update dom
+  displayProjects()
+
+  // create priority, remove, complete, change project buttons
 
   todoDialog.close();
 });
@@ -112,5 +142,10 @@ projectConfirmBtn.addEventListener("click", (event) => {
   event.preventDefault();
   let newProject = new Project(projectTitle.value)
   projects.push(newProject)
-  todoDialog.close();
+
+  //update dom
+  // create remove button
+  displayProjects()
+
+  projectDialog.close();
 });
