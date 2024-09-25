@@ -9,23 +9,24 @@ class Todo {
   }
 
   priority() {
-
+    //make modal?
   }
 
   delete() {
-    //create button that deltes it from the array
-  }
-
-  complete() {
-    //checks it off
-  }
-
-  changeProject() {
-
+    for (let i = 0; i < projects.length; i++) {
+      if (projects[i].title === this.project) {
+        for (let j = 0; j < projects[i].todos.length; j++) {
+          if (projects[i].todos[j].title === this.title) {
+            projects[i].todos.splice(j, 1)
+            displayProjects()
+          }
+        }
+      }
+    }
   }
 
   expand() {
-
+    // expand to see/ edit details
   }
 }
 
@@ -63,8 +64,34 @@ function displayProjects() {
   
     project.todos.forEach(todo => {
       const todoDiv = document.createElement('div')
-      todoDiv.textContent = todo.title //and the due date
+      todoDiv.textContent = todo.title
       todoDiv.setAttribute('class', 'todo')
+
+      const dueDateDiv = document.createElement('div')
+      dueDateDiv.textContent = todo.dueDate
+      todoDiv.appendChild(dueDateDiv)
+
+      const priorityButton = document.createElement('button')
+      priorityButton.textContent = 'Priority'
+      priorityButton.addEventListener('click', () => {
+        todo.priority();
+      })
+      todoDiv.appendChild(priorityButton)
+
+      const expandButton = document.createElement('button')
+      expandButton.textContent = 'Expand'
+      expandButton.addEventListener('click', () => {
+        todo.expand();
+      })
+      todoDiv.appendChild(expandButton)
+
+      const deleteButton = document.createElement('button')
+      deleteButton.textContent = 'Delete'
+      deleteButton.addEventListener('click', () => {
+        todo.delete();
+      })
+      todoDiv.appendChild(deleteButton)
+
       projectDiv.appendChild(todoDiv)
     })
   

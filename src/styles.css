@@ -36,11 +36,16 @@ body {
   font-size: x-large;
   background-color: rgb(116, 103, 103);
   margin: 5px;
+  padding: 5px;
 }
 
 .todo {
   font-size: large;
   border: 1px solid black;
   margin: 1px;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(189, 189, 189);
+  border-radius: 20px;
 }
   
