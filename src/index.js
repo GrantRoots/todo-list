@@ -8,7 +8,7 @@ class Todo {
     this.project = project;
   }
 
-  priority() {
+  priority(number) {
     //make modal?
   }
 
@@ -24,10 +24,6 @@ class Todo {
       }
     }
   }
-
-  expand() {
-    // expand to see/ edit details
-  }
 }
 
 class Project {
@@ -37,19 +33,20 @@ class Project {
 
   todos = []
 
-  addTodo() {
-
-  }
-
-  remove() {
-
+  delete() {
+    for (let i = 0; i < projects.length; i++) {
+      if (projects[i].title === this.title) {
+        projects.splice(i, 1)
+        displayProjects()
+      }
+    }
   }
 }
 
 const projects = []
 
 //CREATE DEFAULT PROJECT
-const defaultProject = new Project('Default')
+const defaultProject = new Project('Default Project')
 projects.push(defaultProject)
 
 const main = document.querySelector('.main')
@@ -61,6 +58,13 @@ function displayProjects() {
     const projectDiv = document.createElement('div')
     projectDiv.textContent = project.title
     projectDiv.setAttribute('class', 'project')
+
+    const deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete Project'
+    deleteButton.addEventListener('click', () => {
+      project.delete();
+    })
+    projectDiv.appendChild(deleteButton)
   
     project.todos.forEach(todo => {
       const todoDiv = document.createElement('div')
@@ -81,7 +85,10 @@ function displayProjects() {
       const expandButton = document.createElement('button')
       expandButton.textContent = 'Expand'
       expandButton.addEventListener('click', () => {
-        todo.expand();
+        const descriptionDiv = document.createElement('div')
+        descriptionDiv.textContent = 'Description: '
+        descriptionDiv.innerHTML += todo.description
+        dueDateDiv.appendChild(descriptionDiv)
       })
       todoDiv.appendChild(expandButton)
 
@@ -100,8 +107,6 @@ function displayProjects() {
 }
 
 displayProjects()
-
-//show projects and 3 todos on main content
 
 //ADD TODO BUTTON
 const addTodo = document.getElementById("addTodo");
