@@ -8,9 +8,14 @@ class Todo {
     this.project = project;
   }
 
-  priority(number) {
-    //make modal?
-  }
+  // priority(number) {
+  //   //green yellow red
+
+  //   //make green
+  //   //click again make yellow
+  //   //click agani red
+  //   //again default
+  // }
 
   delete() {
     for (let i = 0; i < projects.length; i++) {
@@ -23,6 +28,10 @@ class Todo {
         }
       }
     }
+  }
+
+  edit() {
+    //?
   }
 }
 
@@ -64,6 +73,7 @@ function displayProjects() {
     deleteButton.addEventListener('click', () => {
       project.delete();
     })
+    deleteButton.setAttribute('class', 'deleteButton')
     projectDiv.appendChild(deleteButton)
   
     project.todos.forEach(todo => {
@@ -78,7 +88,24 @@ function displayProjects() {
       const priorityButton = document.createElement('button')
       priorityButton.textContent = 'Priority'
       priorityButton.addEventListener('click', () => {
-        todo.priority();
+        const styles = window.getComputedStyle(todoDiv)
+        let color = styles.getPropertyValue('background-color')
+        if (color === 'rgb(189, 189, 189)') {
+          todoDiv.style.backgroundColor = 'rgb(0, 128, 0)'
+          return
+        }
+        if (color === 'rgb(0, 128, 0)') {
+          todoDiv.style.backgroundColor = 'rgb(255, 255, 0)'
+          return
+        }
+        if (color === 'rgb(255, 255, 0)') {
+          todoDiv.style.backgroundColor = 'rgb(255, 0, 0)'
+          return
+        }
+        if (color === 'rgb(255, 0, 0)') {
+          todoDiv.style.backgroundColor = 'rgb(189, 189, 189)'
+          return
+        }
       })
       todoDiv.appendChild(priorityButton)
 
