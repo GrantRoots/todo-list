@@ -42,7 +42,7 @@ body {
 .todo {
   font-size: large;
   border: 1px solid black;
-  margin: 1px;
+  margin: 5px;
   display: flex;
   justify-content: space-around;
   background-color: rgb(189, 189, 189);

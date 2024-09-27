@@ -8,15 +8,6 @@ class Todo {
     this.project = project;
   }
 
-  // priority(number) {
-  //   //green yellow red
-
-  //   //make green
-  //   //click again make yellow
-  //   //click agani red
-  //   //again default
-  // }
-
   delete() {
     for (let i = 0; i < projects.length; i++) {
       if (projects[i].title === this.project) {
@@ -112,10 +103,34 @@ function displayProjects() {
       const expandButton = document.createElement('button')
       expandButton.textContent = 'Expand'
       expandButton.addEventListener('click', () => {
+        //make sure it doesnt put things on the screen twice
         const descriptionDiv = document.createElement('div')
         descriptionDiv.textContent = 'Description: '
         descriptionDiv.innerHTML += todo.description
         dueDateDiv.appendChild(descriptionDiv)
+
+        //add edit button
+        const editButton = document.createElement('button')
+        editButton.textContent = 'Edit'
+        editButton.addEventListener('click', () => {
+          // allow skipping prompt if == null skip
+          const newTitle = prompt('Edit Title(Cancel to skip):')
+          if (newTitle !== null){
+            todo.title = newTitle
+            todoDiv.firstChild.data = todo.title
+          }
+          const newDueDate = prompt('Edit Due Date(Cancel to skip):')
+          if (newDueDate !== null){
+            todo.dueDate = newDueDate
+            dueDateDiv.firstChild.data = todo.dueDate
+          }
+          const newDescription = prompt('Edit Description(Cancel to skip):')
+          if (newDescription !== null){
+            todo.description = newDescription
+            descriptionDiv.firstChild.data = todo.description
+          }
+        })
+        descriptionDiv.appendChild(editButton)
       })
       todoDiv.appendChild(expandButton)
 
