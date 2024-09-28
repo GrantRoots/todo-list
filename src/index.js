@@ -4,25 +4,43 @@ class Todo {
   constructor(title, description, dueDate, project) {
     this.title = title;
     this.description = description;
+
+    //use date fns? on odin project page
     this.dueDate = dueDate;
     this.project = project;
   }
 
-  delete() {
-    for (let i = 0; i < projects.length; i++) {
-      if (projects[i].title === this.project) {
-        for (let j = 0; j < projects[i].todos.length; j++) {
-          if (projects[i].todos[j].title === this.title) {
-            projects[i].todos.splice(j, 1)
-            displayProjects()
-          }
-        }
-      }
-    }
-  }
+  // delete() {
+  //   for (let i = 0; i < projects.length; i++) {
+  //     if (projects[i].title === this.project) {
+  //       for (let j = 0; j < projects[i].todos.length; j++) {
+  //         if (projects[i].todos[j].title === this.title) {
+  //           projects[i].todos.splice(j, 1)
+  //           displayProjects()
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   edit() {
-    //?
+    const newTitle = prompt('Edit Title(Cancel to skip):')
+    if (newTitle !== null){
+      this.title = newTitle
+    }
+    const newDueDate = prompt('Edit Due Date(Cancel to skip):')
+    if (newDueDate !== null){
+      this.dueDate = newDueDate
+    }
+    const newDescription = prompt('Edit Description(Cancel to skip):')
+    if (newDescription !== null){
+      this.description = newDescription
+    }
+    displayProjects()
+  }
+
+  priority() {
+    //store priority for localstorage
   }
 }
 
@@ -33,17 +51,17 @@ class Project {
 
   todos = []
 
-  delete() {
-    for (let i = 0; i < projects.length; i++) {
-      if (projects[i].title === this.title) {
-        projects.splice(i, 1)
-        displayProjects()
-      }
-    }
-  }
+  // delete() {
+  //   for (let i = 0; i < projects.length; i++) {
+  //     if (projects[i].title === this.title) {
+  //       projects.splice(i, 1)
+  //       displayProjects()
+  //     }
+  //   }
+  // }
 }
 
-const projects = []
+let projects = []
 
 //CREATE DEFAULT PROJECT
 const defaultProject = new Project('Default Project')
@@ -62,7 +80,14 @@ function displayProjects() {
     const deleteButton = document.createElement('button')
     deleteButton.textContent = 'Delete Project'
     deleteButton.addEventListener('click', () => {
-      project.delete();
+      // project.delete();
+
+      for (let i = 0; i < projects.length; i++) {
+        if (projects[i].title === project.title) {
+          projects.splice(i, 1)
+          displayProjects()
+        }
+      }
     })
     deleteButton.setAttribute('class', 'deleteButton')
     projectDiv.appendChild(deleteButton)
@@ -113,22 +138,21 @@ function displayProjects() {
         const editButton = document.createElement('button')
         editButton.textContent = 'Edit'
         editButton.addEventListener('click', () => {
-          // allow skipping prompt if == null skip
+          //todo.edit()
+
           const newTitle = prompt('Edit Title(Cancel to skip):')
           if (newTitle !== null){
             todo.title = newTitle
-            todoDiv.firstChild.data = todo.title
           }
           const newDueDate = prompt('Edit Due Date(Cancel to skip):')
           if (newDueDate !== null){
             todo.dueDate = newDueDate
-            dueDateDiv.firstChild.data = todo.dueDate
           }
           const newDescription = prompt('Edit Description(Cancel to skip):')
           if (newDescription !== null){
             todo.description = newDescription
-            descriptionDiv.firstChild.data = todo.description
           }
+          displayProjects()
         })
         descriptionDiv.appendChild(editButton)
       })
@@ -137,7 +161,18 @@ function displayProjects() {
       const deleteButton = document.createElement('button')
       deleteButton.textContent = 'Delete'
       deleteButton.addEventListener('click', () => {
-        todo.delete();
+        // todo.delete()
+
+        for (let i = 0; i < projects.length; i++) {
+          if (projects[i].title === todo.project) {
+            for (let j = 0; j < projects[i].todos.length; j++) {
+              if (projects[i].todos[j].title === todo.title) {
+                 projects[i].todos.splice(j, 1)
+                displayProjects()
+              }
+            }
+          }
+        }
       })
       todoDiv.appendChild(deleteButton)
 
@@ -145,7 +180,19 @@ function displayProjects() {
     })
   
     main.appendChild(projectDiv)
+
+    console.log(projects)
+    //set storage every change
+    localStorage.setItem("projects", JSON.stringify(projects));
   })
+}
+
+//localStorage.clear()
+
+//first get storage
+const jsonProjects = JSON.parse(localStorage.getItem("projects"));
+if (jsonProjects !== null) {
+  projects = jsonProjects
 }
 
 displayProjects()
@@ -161,6 +208,7 @@ const confirmBtn = todoDialog.querySelector("#confirmBtn");
 const selectProject = todoDialog.querySelector("#selectProject");
 
 addTodo.addEventListener("click", () => {
+  selectProject.innerHTML = ''
   for (let i = 0; i < projects.length; i++) {
     const title = projects[i].title
     const option = document.createElement("option")
